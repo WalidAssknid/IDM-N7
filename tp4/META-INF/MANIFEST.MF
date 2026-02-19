@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tp4
+Bundle-SymbolicName: tp4;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.ui
+Automatic-Module-Name: tp4
+Bundle-RequiredExecutionEnvironment: JavaSE-21

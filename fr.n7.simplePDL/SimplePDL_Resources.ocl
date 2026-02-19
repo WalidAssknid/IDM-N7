@@ -1,0 +1,25 @@
+import 'SimplePDL.ecore'
+
+package simplepdl
+
+-- 1. Une ressource doit avoir une quantité disponible positive ou nulle
+context Resource
+inv quantityPositive: self.quantity >= 0
+
+-- 2. Une activité ne peut pas demander une quantité négative ou nulle
+context ResourceUsage
+inv usagePositive: self.needed > 0
+
+-- 3. On ne peut pas demander plus de ressources que le stock total existant
+-- (Exemple : Si j'ai 3 serveurs au total, je ne peux pas en demander 4 pour une seule tâche)
+context ResourceUsage
+inv capacityCheck: self.needed <= self.resource.quantity
+
+-- 4. Les noms des ressources doivent être uniques dans le processus
+context Process
+inv uniqueResourceNames:
+    self.processElements
+    ->select(e | e.oclIsKindOf(Resource))
+    ->isUnique(name)
+
+endpackage

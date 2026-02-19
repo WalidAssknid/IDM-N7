@@ -1,0 +1,33 @@
+import 'PetriNet.ecore'
+
+package petrinet
+
+-- 1. Un nom de nœud (Place ou Transition) doit être unique dans le réseau
+context PetriNet
+inv uniqueNodeNames:
+    self.petriElements
+    ->select(e | e.oclIsKindOf(Node))
+    ->isUnique(name)
+
+-- 2. Les noms doivent avoir au moins 1 caractère
+context Node
+inv validName: self.name.size() > 0
+
+-- 3. Une Place ne peut pas avoir un marquage (nombre de jetons) négatif
+context Place
+inv positiveMarking: self.marking >= 0
+
+-- 4. Un Arc doit avoir un poids strictement positif
+context Arc
+inv positiveWeight: self.weight > 0
+
+-- 5. REGLE D'OR : Structure Bipartite
+-- Un arc ne peut relier qu'une Place à une Transition OU une Transition à une Place.
+-- Interdiction de relier Place->Place ou Transition->Transition.
+context Arc
+inv distinctSourceTargetType:
+    (self.source.oclIsKindOf(Place) and self.target.oclIsKindOf(Transition))
+    or
+    (self.source.oclIsKindOf(Transition) and self.target.oclIsKindOf(Place))
+
+endpackage
