@@ -1,0 +1,8 @@
+process ExempleProcess1 {
+    wd A1
+    wd A1
+    wd A 2
+    wd A1
+    ws A1 s2s A 2
+    ws A 2 s2s A 2
+}
