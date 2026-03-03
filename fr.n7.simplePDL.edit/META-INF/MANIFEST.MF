@@ -5,11 +5,12 @@ Bundle-SymbolicName: fr.n7.simplePDL.edit;singleton:=true
 Automatic-Module-Name: fr.n7.simplePDL.edit
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: simplepdl.provider.SimplePDLEditPlugin$Implementation
+Bundle-Activator: petrinet.provider.PetriNetEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-21
-Export-Package: simplepdl.provider
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: simplepdl.provider,
+ petrinet.provider
 Require-Bundle: org.eclipse.core.runtime,
  fr.n7.simplePDL;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport

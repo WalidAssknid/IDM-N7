@@ -1,0 +1,11 @@
+digraph ReseauTest {
+    rankdir=LR;
+
+    "P1" [shape=circle, label="P1 (2)"];
+    "P2" [shape=circle, label="P2 (0)"];
+
+    "T1" [shape=box, label="T1"];
+
+    "P1" -> "T1" [label="1"];
+    "T1" -> "P2" [label="1"];
+}

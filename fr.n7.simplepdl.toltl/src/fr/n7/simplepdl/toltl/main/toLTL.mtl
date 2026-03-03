@@ -1,0 +1,36 @@
+[comment encoding = UTF-8 /]
+[module toLTL('http://simplepdl')]
+
+[template public processToLTL(aProcess : Process)]
+[comment @main/]
+[file (aProcess.name + '.ltl', false, 'UTF-8')]
+[comment ================================================================================= /]
+[comment T9 : Propriété de terminaison (Est-ce que le processus se termine bien ?)         /]
+[comment ================================================================================= /]
+[comment 1. On définit ce que signifie "terminé" : toutes les activités sont "finished"    /]
+op finished = [for (wd : WorkDefinition | aProcess.processElements->filter(WorkDefinition)) separator (' /\\ ') ][wd.name/]_finished[/for];
+
+[comment 2. Le processus finira-t-il par s'achever un jour ? (Liveness)                    /]
+['<>'/] finished;
+
+[comment 3. Si le réseau est bloqué (dead), est-ce que c'est parce qu'il a terminé ?       /]
+[comment (Cela permet de vérifier l'absence de blocage anormal / deadlock)                 /]
+['[]'/] (dead => finished);
+[comment Et inversement, s'il a terminé, il ne doit plus y avoir de transitions franchissables /]
+['[]'/] (finished => dead);
+
+
+[comment ================================================================================= /]
+[comment T10 : Invariants de SimplePDL (Règles qui doivent être vraies tout le temps)      /]
+[comment ================================================================================= /]
+[for (wd : WorkDefinition | aProcess.processElements->filter(WorkDefinition))]
+[comment Invariants pour l'activité [wd.name/] /]
+[comment a) L'activité est soit non démarrée (ready), soit en cours (running), soit terminée (finished) /]
+['[]'/] ([wd.name/]_ready + [wd.name/]_running + [wd.name/]_finished = 1);
+
+[comment b) L'activité a été démarrée (started) si et seulement si elle est en cours ou terminée /]
+['[]'/] ([wd.name/]_started = [wd.name/]_running + [wd.name/]_finished);
+
+[/for]
+[/file]
+[/template]

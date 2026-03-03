@@ -1,6 +1,6 @@
 package simplepdl.manip;
 
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -10,18 +10,18 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import simplepdl.Process;
-import simplepdl.SimplepdlFactory;
-import simplepdl.SimplepdlPackage;
+//import simplepdl.SimplepdlFactory;
+//import simplepdl.SimplepdlPackage;
 import simplepdl.WorkDefinition;
-import simplepdl.WorkSequence;
-import simplepdl.WorkSequenceType;
+//import simplepdl.WorkSequence;
+//import simplepdl.WorkSequenceType;
 
 public class SimplePDLManipulator {
 
 	public static void main(String[] args) {
 		
 		// Chargement du package SimplePDL afin de l'enregistrer dans le registre d'Eclipse.
-		SimplepdlPackage packageInstance = SimplepdlPackage.eINSTANCE;
+		//SimplepdlPackage packageInstance = SimplepdlPackage.eINSTANCE;
 		
 		// Enregistrer l'extension ".xmi" comme devant Ãªtre ouverte Ã 
 		// l'aide d'un objet "XMIResourceFactoryImpl"

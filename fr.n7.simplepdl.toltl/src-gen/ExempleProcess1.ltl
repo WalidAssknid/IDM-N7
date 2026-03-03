@@ -1,0 +1,28 @@
+op finished = A1_finished /\ A1_finished /\ A 2_finished /\ A1_finished;
+
+<> finished;
+
+[] (dead => finished);
+[] (finished => dead);
+
+
+ /]
+[] (A1_ready + A1_running + A1_finished = 1);
+
+[] (A1_started = A1_running + A1_finished);
+
+ /]
+[] (A1_ready + A1_running + A1_finished = 1);
+
+[] (A1_started = A1_running + A1_finished);
+
+ /]
+[] (A 2_ready + A 2_running + A 2_finished = 1);
+
+[] (A 2_started = A 2_running + A 2_finished);
+
+ /]
+[] (A1_ready + A1_running + A1_finished = 1);
+
+[] (A1_started = A1_running + A1_finished);
+

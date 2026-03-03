@@ -15,14 +15,14 @@ import simplepdl.WorkDefinition;
 import simplepdl.WorkSequence;
 import simplepdl.WorkSequenceType;
 import simplepdl.SimplepdlFactory;
-import simplepdl.SimplepdlPackage;
+//import simplepdl.SimplepdlPackage;
 
 public class SimplePDLCreator {
 
 	public static void main(String[] args) {
 		
 		// Charger le package SimplePDL afin de l'enregistrer dans le registre d'Eclipse.
-		SimplepdlPackage packageInstance = SimplepdlPackage.eINSTANCE;
+		//SimplepdlPackage packageInstance = SimplepdlPackage.eINSTANCE;
 		
 		// Enregistrer l'extension ".xmi" comme devant Ãªtre ouverte Ã 
 		// l'aide d'un objet "XMIResourceFactoryImpl"

@@ -1,0 +1,29 @@
+[comment encoding = UTF-8 /]
+[module toDot('http://petrinet')]
+
+[template public petriToDot(aPetriNet : PetriNet)]
+[comment @main/]
+[file (aPetriNet.name + '.dot', false, 'UTF-8')]
+digraph [aPetriNet.name/] {
+    rankdir=LR;
+
+    [comment Dessiner les Lieux (Cercles) /]
+    [for (p : Place | aPetriNet.petrielement->filter(Place))]
+    "[p.name/]" [bracket('shape=circle, label="' + p.name + ' (' + p.marking + ')"')/];
+    [/for]
+
+    [comment Dessiner les Transitions (Rectangles) /]
+    [for (t : Transition | aPetriNet.petrielement->filter(Transition))]
+    "[t.name/]" [bracket('shape=box, label="' + t.name + '"')/];
+    [/for]
+
+    [comment Dessiner les Arcs /]
+    [for (a : Arc | aPetriNet.petrielement->filter(Arc))]
+    "[a.source.name/]" -> "[a.target.name/]" [bracket('label="' + a.weight + '"' + if (a.kind = ArcKind::read_arc) then ', arrowhead=tee' else '' endif)/];
+    [/for]
+}
+[/file]
+[/template]
+
+[comment Cette fonction permet de générer des vrais crochets pour Graphviz sans faire planter Acceleo /]
+[query public bracket(s : String) : String = '[' + s + ']' /]

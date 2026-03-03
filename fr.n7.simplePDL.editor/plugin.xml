@@ -34,4 +34,31 @@
       </editor>
    </extension>
 
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated PetriNet -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="petrinet.presentation.PetriNetModelWizardID"
+            name="%_UI_PetriNetModelWizard_label"
+            class="petrinet.presentation.PetriNetModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PetriNetModelFile.gif">
+         <description>%_UI_PetriNetModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated PetriNet -->
+      <editor
+            id="petrinet.presentation.PetriNetEditorID"
+            name="%_UI_PetriNetEditor_label"
+            icon="icons/full/obj16/PetriNetModelFile.gif"
+            extensions="petrinet"
+            class="petrinet.presentation.PetriNetEditor"
+            contributorClass="petrinet.presentation.PetriNetActionBarContributor">
+      </editor>
+   </extension>
 </plugin>
