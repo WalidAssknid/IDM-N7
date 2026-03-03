@@ -1,0 +1,7 @@
+digraph developpement {
+	Conception -> RedactionDoc [arrowhead=vee label=startToStart]
+	Conception -> RedactionDoc [arrowhead=vee label=finishToFinish]
+	Conception -> Developpement [arrowhead=vee label=finishToStart]
+	Conception -> RedactionTests [arrowhead=vee label=startToStart]
+	Developpement -> RedactionTests [arrowhead=vee label=finishToFinish]
+}

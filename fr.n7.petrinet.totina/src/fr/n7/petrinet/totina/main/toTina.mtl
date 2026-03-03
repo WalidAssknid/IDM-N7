@@ -1,0 +1,19 @@
+[comment encoding = UTF-8 /]
+[module toTina('http://petrinet')]
+
+[template public petrinetToTina(aPetriNet : PetriNet)]
+[comment @main/]
+[file (aPetriNet.name + '.net', false, 'UTF-8')]
+net [aPetriNet.name/]
+
+[comment Génération des Places /]
+[for (p : Place | aPetriNet.petrielement->filter(Place))]
+pl [p.name/] ([p.marking/])
+[/for]
+
+[comment Génération des Transitions /]
+[for (t : Transition | aPetriNet.petrielement->filter(Transition))]
+tr [t.name/] [for (arc : Arc | aPetriNet.petrielement->filter(Arc))][if (arc.target = t)][arc.source.name/][if (arc.kind = ArcKind::read_arc)]?[arc.weight/][else]*[arc.weight/][/if] [/if][/for] -> [for (arc : Arc | aPetriNet.petrielement->filter(Arc))][if (arc.source = t)][arc.target.name/]*[arc.weight/] [/if][/for]
+[/for]
+[/file]
+[/template]

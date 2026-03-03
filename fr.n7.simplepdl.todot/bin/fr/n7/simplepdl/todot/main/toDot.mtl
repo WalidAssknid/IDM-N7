@@ -1,0 +1,13 @@
+[comment encoding = UTF-8 /]
+[module toDot('http://simplepdl')]
+
+[template public processToDot(aProcess : Process)]
+[comment @main/]
+[file (aProcess.name + '.dot', false, 'UTF-8')]
+digraph [aProcess.name/] {
+[for (ws : WorkSequence | aProcess.processElements->filter(WorkSequence))]
+	[ws.predecessor.name/] -> [ws.successor.name/] [ '[' /]arrowhead=vee label=[ws.linkType/][ ']' /]
+[/for]
+}
+[/file]
+[/template]
