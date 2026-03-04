@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ASCII"?>
+<petrinet:PetriNet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:petrinet="http://petrinet" name="Developpement">
+  <petrielement xsi:type="petrinet:Place" name="Conception_ready" marking="1"/>
+  <petrielement xsi:type="petrinet:Place" name="Conception_started"/>
+  <petrielement xsi:type="petrinet:Place" name="Conception_running"/>
+  <petrielement xsi:type="petrinet:Place" name="Conception_finished"/>
+  <petrielement xsi:type="petrinet:Transition" name="Conception_start"/>
+  <petrielement xsi:type="petrinet:Transition" name="Conception_finish"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.0" target="//@petrielement.4"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.4" target="//@petrielement.1"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.4" target="//@petrielement.2"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.2" target="//@petrielement.5"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.5" target="//@petrielement.3"/>
+  <petrielement xsi:type="petrinet:Place" name="RedactionDoc_ready" marking="1"/>
+  <petrielement xsi:type="petrinet:Place" name="RedactionDoc_started"/>
+  <petrielement xsi:type="petrinet:Place" name="RedactionDoc_running"/>
+  <petrielement xsi:type="petrinet:Place" name="RedactionDoc_finished"/>
+  <petrielement xsi:type="petrinet:Transition" name="RedactionDoc_start"/>
+  <petrielement xsi:type="petrinet:Transition" name="RedactionDoc_finish"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.11" target="//@petrielement.15"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.15" target="//@petrielement.12"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.15" target="//@petrielement.13"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.13" target="//@petrielement.16"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.16" target="//@petrielement.14"/>
+  <petrielement xsi:type="petrinet:Place" name="Programmation_ready" marking="1"/>
+  <petrielement xsi:type="petrinet:Place" name="Programmation_started"/>
+  <petrielement xsi:type="petrinet:Place" name="Programmation_running"/>
+  <petrielement xsi:type="petrinet:Place" name="Programmation_finished"/>
+  <petrielement xsi:type="petrinet:Transition" name="Programmation_start"/>
+  <petrielement xsi:type="petrinet:Transition" name="Programmation_finish"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.22" target="//@petrielement.26"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.26" target="//@petrielement.23"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.26" target="//@petrielement.24"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.24" target="//@petrielement.27"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.27" target="//@petrielement.25"/>
+  <petrielement xsi:type="petrinet:Place" name="Tests_ready" marking="1"/>
+  <petrielement xsi:type="petrinet:Place" name="Tests_started"/>
+  <petrielement xsi:type="petrinet:Place" name="Tests_running"/>
+  <petrielement xsi:type="petrinet:Place" name="Tests_finished"/>
+  <petrielement xsi:type="petrinet:Transition" name="Tests_start"/>
+  <petrielement xsi:type="petrinet:Transition" name="Tests_finish"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.33" target="//@petrielement.37"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.37" target="//@petrielement.34"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.37" target="//@petrielement.35"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.35" target="//@petrielement.38"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" source="//@petrielement.38" target="//@petrielement.36"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" kind="read_arc" source="//@petrielement.3" target="//@petrielement.15"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" kind="read_arc" source="//@petrielement.3" target="//@petrielement.26"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" kind="read_arc" source="//@petrielement.3" target="//@petrielement.37"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" kind="read_arc" source="//@petrielement.25" target="//@petrielement.37"/>
+  <petrielement xsi:type="petrinet:Arc" weight="1" kind="read_arc" source="//@petrielement.1" target="//@petrielement.26"/>
+</petrinet:PetriNet>

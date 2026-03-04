@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petrinet:PetriNet
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petrinet="http://petrinet"
+    name="ReseauTest">
+  <petrielement
+      xsi:type="petrinet:Place"
+      name="P1"
+      marking="1"/>
+  <petrielement
+      xsi:type="petrinet:Place"
+      name="P2"/>
+  <petrielement
+      xsi:type="petrinet:Arc"
+      weight="1"
+      source="//@petrielement.0"
+      target="//@petrielement.1"/>
+</petrinet:PetriNet>

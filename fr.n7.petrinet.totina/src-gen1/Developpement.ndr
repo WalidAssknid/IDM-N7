@@ -1,0 +1,52 @@
+t 110.0 95.0 Conception_start 0 w n
+t 170.0 220.0 Conception_finish 0 w n
+t 265.0 345.0 RedactionDoc_start 0 w n
+t 275.0 465.0 RedactionDoc_finish 0 w n
+t 120.0 345.0 Programmation_start 0 w n
+t 130.0 465.0 Programmation_finish 0 w n
+t 175.0 595.0 Tests_start 0 w n
+t 205.0 720.0 Tests_finish 0 w n
+p 140.0 155.0 Conception_running 0 n
+p 180.0 280.0 Conception_finished 0 n
+p 265.0 280.0 RedactionDoc_ready 1 n
+p 330.0 405.0 RedactionDoc_started 0 n
+p 265.0 405.0 RedactionDoc_running 0 n
+p 285.0 530.0 RedactionDoc_finished 0 n
+p 65.0 405.0 Programmation_started 0 n
+p 130.0 405.0 Programmation_running 0 n
+p 130.0 530.0 Programmation_finished 0 n
+p 225.0 530.0 Tests_ready 1 n
+p 145.0 660.0 Tests_started 0 n
+p 205.0 660.0 Tests_running 0 n
+p 205.0 780.0 Tests_finished 0 n
+p 85.0 220.0 Conception_started 0 n
+p 110.0 30.0 Conception_ready 1 n
+p 120.0 275.0 Programmation_ready 1 n
+e Tests_finish Tests_finished 1 n
+e Tests_running Tests_finish 1 n
+e Tests_start Tests_started 1 n
+e Tests_start Tests_running 1 n
+e Conception_finished Tests_start ?1 n
+e Programmation_finished Tests_start ?1 n
+e Tests_ready Tests_start 1 n
+e Programmation_finish Programmation_finished 1 n
+e Programmation_running Programmation_finish 1 n
+e Programmation_start Programmation_started 1 n
+e Programmation_start Programmation_running 1 n
+e Conception_finished Programmation_start ?1 n
+e Conception_started Programmation_start ?1 n
+e Programmation_ready Programmation_start 1 n
+e RedactionDoc_finish RedactionDoc_finished 1 n
+e RedactionDoc_running RedactionDoc_finish 1 n
+e RedactionDoc_start RedactionDoc_started 1 n
+e RedactionDoc_start RedactionDoc_running 1 n
+e Conception_finished RedactionDoc_start ?1 n
+e RedactionDoc_ready RedactionDoc_start 1 n
+e Conception_finish Conception_finished 1 n
+e Conception_running Conception_finish 1 n
+e Conception_start Conception_started 1 n
+e Conception_start Conception_running 1 n
+e Conception_ready Conception_start 1 n
+h Developpement small
+
+

@@ -37,24 +37,28 @@ public class SimplePDL2PetriNet {
 		ResourceSet resSet = new ResourceSetImpl();
 		resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("simplepdl", new XMIResourceFactoryImpl());
+		resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("petrinet", new XMIResourceFactoryImpl());
 		
 		// 3. Charger le modèle d'entrée (SimplePDL)
 		// Remplacez "Process.xmi" par le nom exact de votre fichier modèle créé plus tôt
 		//URI modelURI = URI.createURI("models/Process.xmi"); 
-		URI modelURI = URI.createURI("Process.xmi");
+		//URI modelURI = URI.createURI("Process.xmi");
+		URI modelURI = URI.createURI("models/pdl-sujet.xmi"); 
 		Resource resource = resSet.getResource(modelURI, true);
 		
 		// Récupérer la racine du modèle (le Processus)
 		Process process = (Process) resource.getContents().get(0);
 		
 		// 4. Créer le modèle de sortie (PetriNet)
-		Resource petriResource = resSet.createResource(URI.createURI("models/Resultat_Petri.xmi"));
+		//Resource petriResource = resSet.createResource(URI.createURI("models/Resultat_Petri.xmi"));
+		Resource petriResource = resSet.createResource(URI.createURI("models/pdl-sujet.petrinet"));
 		
 		// Utilisation de la Factory pour créer les éléments
 		PetriNetFactory factory = PetriNetFactory.eINSTANCE;
 		PetriNet petriNet = factory.createPetriNet();
 		petriNet.setName(process.getName());
 		petriResource.getContents().add(petriNet);
+		
 
 		// --- Début de la Transformation ---
 		
@@ -79,13 +83,21 @@ public class SimplePDL2PetriNet {
 				Transition t_start = createTransition(factory, petriNet, wd.getName() + "_start");
 				Transition t_finish = createTransition(factory, petriNet, wd.getName() + "_finish");
 				
-				// Création des Arcs internes (Logique séquentielle)
-				// Ready -> Start -> Started/Running -> Finish -> Finished
-				createArc(factory, petriNet, p_ready, t_start, ArcKind.NORMAL);
-				createArc(factory, petriNet, t_start, p_started, ArcKind.NORMAL);
-				createArc(factory, petriNet, t_start, p_running, ArcKind.NORMAL);
-				createArc(factory, petriNet, p_running, t_finish, ArcKind.NORMAL);
-				createArc(factory, petriNet, t_finish, p_finished, ArcKind.NORMAL);
+				// --- Création des Arcs internes de l'activité ---
+
+				// 1. Démarrer l'activité : on consomme "Ready", on produit "Started" et "Running"
+				createArc(factory, petriNet, p_ready, t_start, ArcKind.NORMAL);    // Ready -> Start
+				createArc(factory, petriNet, t_start, p_started, ArcKind.NORMAL);  // Start -> Started
+				createArc(factory, petriNet, t_start, p_running, ArcKind.NORMAL);  // Start -> Running
+
+				// 2. Terminer l'activité : on consomme "Running", on produit "Finished"
+				createArc(factory, petriNet, p_running, t_finish, ArcKind.NORMAL); // Running -> Finish
+				createArc(factory, petriNet, t_finish, p_finished, ArcKind.NORMAL);// Finish -> Finished
+
+				// (Le jeton reste dans 'Started' de façon permanente, c'est ce qui permet 
+				// aux dépendances de type StartTo... de toujours pouvoir être lues via read_arc)
+				
+				
 				
 				// Stockage pour les liens futurs
 				placesStarted.put(wd, p_started);
@@ -135,7 +147,7 @@ public class SimplePDL2PetriNet {
 		// 5. Sauvegarde du fichier généré
 		try {
 			petriResource.save(Collections.EMPTY_MAP);
-			System.out.println("Transformation terminée ! Fichier généré : models/Resultat_Petri.xmi");
+			System.out.println("Transformation terminée ! Fichier généré");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -163,7 +175,7 @@ public class SimplePDL2PetriNet {
 		arc.setSource(source);
 		arc.setTarget(target);
 		arc.setKind(kind);
-//		arc.setWeight(1);
+		arc.setWeight(1);
 		net.getPetrielement().add(arc);
 	}
 }

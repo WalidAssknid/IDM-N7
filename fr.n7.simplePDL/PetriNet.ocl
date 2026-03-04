@@ -5,7 +5,7 @@ package petrinet
 -- 1. Un nom de nœud (Place ou Transition) doit être unique dans le réseau
 context PetriNet
 inv uniqueNodeNames:
-    self.petriElements
+    self.petrielement
     ->select(e | e.oclIsKindOf(Node))
     ->isUnique(name)
 

@@ -2,27 +2,89 @@ import 'SimplePDL.ecore'
 
 package simplepdl
 
+----------------------------------------------------------------------
+-- Contraintes sur le Processus (Process)
+----------------------------------------------------------------------
 context Process
-inv warningSeverity: false
-inv withMessage('Explicit message in process ' + self.name + ' (withMessage)'): false
-inv errorSeverity: null
 
-context Process
-inv validName('Invalid name: ' + self.name):
-	self.name.matches('[A-Za-z_][A-Za-z0-9_]*')
+-- Le nom du processus doit être valide (lettres, chiffres, tiret bas)
+inv validName('Invalid process name: ' + self.name):
+    self.name.matches('[A-Za-z_][A-Za-z0-9_]*')
 
+-- Deux activités (WorkDefinition) ne doivent pas avoir le même nom dans un processus
+inv uniqWorkDefinitionNames('Two activities cannot have the same name'):
+    self.processElements->select(e | e.oclIsTypeOf(WorkDefinition))
+    ->collect(e | e.oclAsType(WorkDefinition).name)
+    ->isUnique(name | name)
+
+-- Deux ressources (Ressource) ne doivent pas avoir le même nom dans un processus
+inv uniqRessourceNames('Two resources cannot have the same name'):
+    self.processElements->select(e | e.oclIsTypeOf(Ressource))
+    ->collect(e | e.oclAsType(Ressource).name)
+    ->isUnique(name | name)
+
+
+----------------------------------------------------------------------
+-- Helper pour retrouver le Processus parent
+----------------------------------------------------------------------
 context ProcessElement
 def: process(): Process =
-	Process.allInstances()
-		->select(p | p.processElements->includes(self))
-		->asSequence()->first()
+    Process.allInstances()
+        ->select(p | p.processElements->includes(self))
+        ->asSequence()->first()
 
+
+----------------------------------------------------------------------
+-- Contraintes sur les Activités (WorkDefinition)
+----------------------------------------------------------------------
+context WorkDefinition
+
+-- Le nom d'une activité doit être valide et ne pas être vide
+inv validName('Invalid activity name: ' + self.name):
+    self.name.matches('[A-Za-z_][A-Za-z0-9_]*')
+
+
+----------------------------------------------------------------------
+-- Contraintes sur les Dépendances (WorkSequence)
+----------------------------------------------------------------------
 context WorkSequence
-inv successorAndPredecessorInSameProcess('Activities not in the same process : '
-		+ self.predecessor.name + ' in ' + self.predecessor.process().name+ ' and '
-		+ self.successor.name + ' in ' + self.successor.process().name
-):
-	self.process() = self.successor.process()
-	and self.process() = self.predecessor.process()
+
+-- La source et la cible doivent faire partie du même processus
+inv successorAndPredecessorInSameProcess('Activities not in the same process: '
+        + self.predecessor.name + ' and ' + self.successor.name):
+    self.process() = self.successor.process()
+    and self.process() = self.predecessor.process()
+
+-- Une dépendance ne peut pas relier une activité à elle-même (Pas de boucle)
+inv notReflexive('An activity cannot depend on itself: ' + self.predecessor.name):
+    self.predecessor <> self.successor
+
+
+----------------------------------------------------------------------
+-- Contraintes sur les Ressources (Ressource)
+----------------------------------------------------------------------
+context Ressource
+
+-- Le nom de la ressource doit être valide
+inv validName('Invalid resource name: ' + self.name):
+    self.name <> null and self.name.matches('[A-Za-z_][A-Za-z0-9_]*')
+
+-- La quantité totale d'une ressource doit être strictement positive
+inv positiveQuantity('Resource quantity must be positive for: ' + self.name):
+    self.quantity > 0
+
+
+----------------------------------------------------------------------
+-- Contraintes sur l'Utilisation des Ressources (ResourceUsage)
+----------------------------------------------------------------------
+context ResourceUsage
+
+-- Le nombre de ressources demandées pour une activité doit être strictement positif
+inv positiveNeeded('Needed resource quantity must be > 0'):
+    self.needed > 0
+
+-- Une activité ne peut pas demander plus d'une ressource qu'il n'en existe au total
+inv withinCapacity('Requested quantity exceeds total available capacity for resource'):
+    self.needed <= self.ressource.quantity
 
 endpackage
