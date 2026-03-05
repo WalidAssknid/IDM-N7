@@ -1,4 +1,4 @@
-import 'SimplePDL.ecore'
+import 'platform:/resource/fr.n7.simplePDL/SimplePDL.ecore'
 
 package simplepdl
 
